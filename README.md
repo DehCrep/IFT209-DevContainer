@@ -37,31 +37,28 @@ wsl --install
 
 6. Configurez votre utilisateur Unix par défaut (Si le terminal ne vous le propose pas automatiquement, rouvrez wsl en entrant la commande `wsl` dans le terminal).
 
-
 ## Installer Docker dans WSL
 1. Dans *Visual Studio Code*, appuyez sur `f1` et sélectionnez `Dev Containers: Install Docker in WSL`.  
 *Docker devrait être installé et correctement configuré dans votre distribution de WSL.*
 
-## Configurer WSL pour exécuter ARM
+## Configurer la couche d'émulation dans WSL
+1. Dans *Visual Studio Code*, Appuyez sur `f1` et entrez `WSL: Connect to WSL`. L'IDE devrait se recharger et vous verrez en bas à gauche de l'application un ruban bleu libellé avec le nom de votre distribution.
 
-2. Dans *Visual Studio Code*, Appuyez sur `f1` et entrez `WSL: Connect to WSL`. L'IDE devrait se recharger et vous verrez en bas à gauche de l'application un ruban bleu libellé avec le nom de votre distribution.
-
-3. Ouvrez un terminal et installez qemu avec la ligne suivante:
+2. Pour lancer automatiquement la couche d'émulation à chaque initialisation de WSL, copiez le service [qemu-binfmt.service](qemu-binfmt.service) sous le dossier suivant: `/etc/systemd/system/qemu-binfmt.service`.
 ```bash
-sudo apt update
-sudo apt install qemu-user-static
+# En Ayant cd la racine du projet
+sudo cp ./qemu-binfmt.service /etc/systemd/system/
 ```
 
-*Ce paquet fait le pont entre l'architechture ARM et X86. Il est nécéssaire.*
-
-4. Enregistrez qemu avec la ligne suivante:
+3. Activez le service de façon permanente:
 ```bash
-docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+sudo systemctl enable qemu-binfmt
+sudo systemctl start qemu-binfmt
 ```
-
 
 ## Utiliser le Dev Container
-
 1. Copiez le dossier intitulé [`.devcontainer`](.devcontainer) (à partir de ce dépôt) dans le même dossier que le devoir que vous utilisez.
 
 2. Ouvrez votre dossier de travail avec *Visual Studio Code*. Celui-ci devrait vous proposer de rouvrir le dossier dans le DevContainer. Faites-le! Si vous ne voyez pas le prompt, assurez vous que le dossier [`.devcontainer`](.devcontainer) se situe bien à la racine de votre dossier de travail. Vous pouvez forcer Visual Studio Code à lancer le Dev Container en appuyant sur `f1` et en sélectionnant `Dev Containers: Reopen in Container`.
@@ -87,6 +84,10 @@ L'image de base du DevContainer vient préinstallée avec les outils nécéssair
 1. Vous devez activer la virtualisation dans le bios.
 
 ### Erreurs de lancement du dev container.
+```log
+WARNING: The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64/v3) and no specific platform was requested
+exec /bin/sh: exec format error
+```
 1. Assurez-vous d'avoir bien suivi les instructions sous [Configurer WSL pour exécuter ARM](#configurer-wsl-pour-exécuter-arm).
 
 ### Je n'utilise pas Visual Studio Code
