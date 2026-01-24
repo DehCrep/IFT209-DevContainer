@@ -1,10 +1,13 @@
-# Développement asm ARM sur x86
+# Développement ASM ARM sur x86
 
 Ce projet a été fait avec amour pour les élèves de l'université de Sherbooke qui ne veulent pas faire leurs devoirs d'IFT209 sur les ordinateurs de l'école ou d'installer l'ÉNORME image de machine virtuelle de 15gb qui est littéralement impossible à télécharger (j'ai essayé 2 fois et j'ai abandonné).
 
 Je vous prend donc par la main pour vous aider à configurer un environnement de développement assembly beaucoup plus légé et moderne que la solution proposée en cours.
 
 ## Prérequis
+
+> **Utilisateurs de Linux**  
+La configuration de votre machine est beaucoup plus facile. Passez directement à l'étape [Configurer la couche d'émulation](#configurer-la-couche-démulation) # 2.
 
 Ce projet dépend des DevContainers. Vous aurez besoin des composantes suivantes pour l'exécuter correctement:
 
@@ -41,10 +44,10 @@ wsl --install
 1. Dans *Visual Studio Code*, appuyez sur `f1` et sélectionnez `Dev Containers: Install Docker in WSL`.  
 *Docker devrait être installé et correctement configuré dans votre distribution de WSL.*
 
-## Configurer la couche d'émulation dans WSL
+## Configurer la couche d'émulation
 1. Dans *Visual Studio Code*, Appuyez sur `f1` et entrez `WSL: Connect to WSL`. L'IDE devrait se recharger et vous verrez en bas à gauche de l'application un ruban bleu libellé avec le nom de votre distribution.
 
-2. Pour lancer automatiquement la couche d'émulation à chaque initialisation de WSL, copiez le service [qemu-binfmt.service](qemu-binfmt.service) sous le dossier suivant: `/etc/systemd/system/qemu-binfmt.service`.
+2. Copiez le service [qemu-binfmt.service](qemu-binfmt.service) sous le dossier suivant: `/etc/systemd/system/qemu-binfmt.service`.
 ```bash
 # En Ayant cd la racine du projet
 sudo cp ./qemu-binfmt.service /etc/systemd/system/
@@ -58,6 +61,11 @@ sudo systemctl enable qemu-binfmt
 sudo systemctl start qemu-binfmt
 ```
 
+- **Alternativement,**  si vous ne voulez pas bisouiller avec les services, ne faites qu'exécuter la ligne suivante à chaque lancements:
+    ```bash
+    docker run --privileged --rm tonistiigi/binfmt --install arm64
+    ```
+
 ## Utiliser le Dev Container
 1. Copiez le dossier intitulé [`.devcontainer`](.devcontainer) (à partir de ce dépôt) dans le même dossier que le devoir que vous utilisez.
 
@@ -70,6 +78,7 @@ Au premier lancement, Docker téléchargera les fichiers nécéssaires pour l'ex
 3. Ouvrez un nouveau terminal, compilez votre programme avec les commandes vues en classe et exécutez le comme si vous utilisiez une vraie machine ARM !
 
 L'image de base du DevContainer vient préinstallée avec les outils nécéssaires à la compilation de code asm:
+- `gdb`
 - `gcc`
 - `make` 
 - `ld`
@@ -88,7 +97,7 @@ L'image de base du DevContainer vient préinstallée avec les outils nécéssair
 WARNING: The requested image's platform (linux/arm64) does not match the detected host platform (linux/amd64/v3) and no specific platform was requested
 exec /bin/sh: exec format error
 ```
-1. Assurez-vous d'avoir bien suivi les instructions sous [Configurer WSL pour exécuter ARM](#configurer-wsl-pour-exécuter-arm).
+1. Assurez-vous d'avoir bien suivi les instructions sous [Configurer la couche d'émulation](#configurer-la-couche-démulation).
 
 ### Je n'utilise pas Visual Studio Code
 Ougabouga  
