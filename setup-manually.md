@@ -1,9 +1,12 @@
-# Configuration manuelle de WSL
+# Configuration manuelle
 
-Cette procédure vous aidera à installer WSL et configurer votre installation pour supporter l'exécution de containers ARM par l'intermédiaire de l'émulateur QEMU.
+Cette procédure vous aidera à configurer votre système pour supporter l'exécution de containers ARM par l'intermédiaire de l'émulateur QEMU.
 
 > **Attention!**  
 Si Docker Desktop est déjà installé, référez-vous au guide [Configuration de Docker Desktop](setup-docker-desktop.md).
+
+> **Utilisateurs de Linux**  
+Sautez tout de suite à l'étape 2 de [Configurer la couche d'émulation](#configurer-la-couche-démulation).
 
 
 ## Configurer votre ordinateur
@@ -37,6 +40,9 @@ wsl --install
 
 ## Configurer la couche d'émulation
 1. Dans *Visual Studio Code*, Appuyez sur `f1` et entrez `WSL: Connect to WSL`. L'IDE devrait se recharger et vous verrez en bas à gauche de l'application un ruban bleu libellé avec le nom de votre distribution.
+
+> **Utilisateurs de Linux**  
+Commencez à l'étape suivante:
 
 2. Copiez le service [qemu-binfmt.service](qemu-binfmt.service) (à partir de ce dépôt)  sous le dossier suivant: `/etc/systemd/system/qemu-binfmt.service`.
 ```bash
@@ -88,7 +94,7 @@ exec /bin/sh: exec format error
 ```bash
 docker
 ```
-Si vous recevez un message d'erreur comme suit:
+Si vous recevez un message d'erreur comme suit, vous avec probablement déjà installé *Docker Desktop*. Ouvrez ce dernier et faites en sorte qu'il s'exécute correctement.
 ```
 The command 'docker' could not be found in this WSL 2 distro.
 We recommend to activate the WSL integration in Docker Desktop settings.
