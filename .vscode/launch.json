@@ -9,10 +9,9 @@
             "cwd": "${fileDirname}",
             "MIMode": "gdb",
             "miDebuggerPath": "/usr/bin/gdb-multiarch",
-            // TODO: use env DB_HOST and DB_PORT
-            "miDebuggerServerAddress": "localhost:1234",
+            "miDebuggerServerAddress": "${env:DB_HOST}:${env:DB_PORT}",
             "stopAtEntry": true,
-            "preLaunchTask": "arm-debug",
+            "preLaunchTask": "(QEMU) launch debug",
             "setupCommands": [
                 {
                     "description": "Set ARM architecture",

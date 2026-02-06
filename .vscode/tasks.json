@@ -2,23 +2,37 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "arm-debug",
+            "label": "(QEMU) launch debug",
             "type": "shell",
-            "command": "bash -ic 'arm-debug ${fileDirname}${pathSeparator}${fileBasenameNoExtension}'",
-            "problemMatcher": [],
+            // This is very hacky. I'm not aware of any cleaner solutions.
+            // 1. Echo 'Start'
+            // 2. Subshell that logs Ready in 0.5 second
+            // 3. Launch the qemu server
+            "dependsOn":[ "Log Ready to QEMU output" ],
+            "command": "echo Start && (sleep 0.5; echo 'Ready' > /proc/$(pgrep qemu-aarch64)/fd/1) & qemu-aarch64 -L /usr/aarch64-linux-gnu/ -g ${env:DB_PORT} ${fileDirname}${pathSeparator}${fileBasenameNoExtension}",
             "isBackground": true,
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
             "presentation": {
                 "echo": true,
                 "reveal": "always",
                 "focus": true,
                 "panel": "shared",
-                "showReuseMessage": true,
+                "showReuseMessage": false,
                 "clear": false
             },
+            "problemMatcher": {
+                "owner": "custom",
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(error|warning):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "message": 5
+                },
+                "background": {
+                    "beginsPattern": ".*",
+                    "endsPattern": "Ready"
+                }
+            }
         }
     ]
 }
