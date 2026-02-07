@@ -15,7 +15,12 @@
                 "files.associations": {
                     "*.as": "arm.aarch64-assembly"
                 },
-                "debug.allowBreakpointsEverywhere": true
+                "armls.diagnostics.disableCategories": [
+                    "tooManyOperands",
+                    "invalidOperand",
+                    "tooFewOperands",
+                    "unrecognisedInstruction"
+                ]
             }
         }
     }
