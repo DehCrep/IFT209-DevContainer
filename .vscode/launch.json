@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug ARM64 via QEMU",
+            "name": "(QEMU + gdb) debug current file",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}${pathSeparator}${fileBasenameNoExtension}",
@@ -10,7 +10,7 @@
             "MIMode": "gdb",
             "miDebuggerPath": "/usr/bin/gdb-multiarch",
             "miDebuggerServerAddress": "${env:DB_HOST}:${env:DB_PORT}",
-            "preLaunchTask": "(QEMU) launch debug",
+            "preLaunchTask": "(QEMU + gdbstub) debug current file",
             "stopAtEntry": true,
             "targetArchitecture": "arm64",
             "setupCommands": [

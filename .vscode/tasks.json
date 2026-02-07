@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "(QEMU) launch debug",
+            "label": "(QEMU + gdbstub) debug current file",
             "type": "shell",
             "dependsOn":[ "Log Ready to QEMU output" ],
             // Print 'ping' and 'pong' to trigger background command lifecycle.

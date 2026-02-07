@@ -1,4 +1,4 @@
-# Développement ASM ARM sur x86 v2
+# Développement ASM ARM sur x86
 
 ![Visual Studio Code en plein débogage ASM ARM.](images/debug-preview.png)
 
@@ -18,13 +18,10 @@ Le DevContainer de ce projet est configuré spécifiquement pour permettre le d�
 
 ### Docker
 
-1. Suivez les instructions d'installation à partir du [site officiel](https://docs.docker.com/engine/install/). Pour un installation clé en main, installez [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+1. Suivez les instructions d'installation à partir du [site officiel](https://docs.docker.com/engine/install/). Pour une installation plus facile, installez [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 
 > **Utilisateurs Windows:** Pour un installation plus légère, installez manuellement WSL et Docker avec les instructions dans [ce document](/wsl-configuration.md).
 
-1. Suivez les instructions d'installation à partir du [site officiel](https://docs.docker.com/engine/install/).
-
-> **Utilisateurs Windows:** Je vous conseille d'installer [Docker Desktop](https://www.docker.com/products/docker-desktop/), puisque ça facilite le processus d'installation. Pour un installation plus légère, installez manuellement WSL et Docker avec les instructions dans [ce document](/wsl-configuration.md).
 ## Utiliser le Dev Container
 1. Téléchargez la dernière version du DevContainer [ici](https://github.com/DehCrep/IFT209-DevContainer/releases/latest).
 1. Dézippez la dans le même dossier que votre projet. *Les dossiers [`.devcontainer`](.devcontainer) [`.vscode`](.vscode) devraient se trouver à sa racine.*
@@ -94,7 +91,7 @@ QEMU ne supporte pas le débogage avec gdb nativement, mais il supporte son util
     ```
     N'utiliser pas la commande `run` pour lancer le programme, puisqu'il est déjà en cours d'exécution.
 
-    Vous êtes maintenant en train de déboguer votre programme! Utilisez toutes les commandes de GDB que vous voulez (quel plaisir!)
+    Vous êtes maintenant en train de déboguer votre programme! Utilisez toutes les commandes de gdb que vous voulez (quel plaisir!)
 
 ## Débogage visuel (Visual Studio Code)
 
@@ -104,7 +101,7 @@ Le débogage visuel trivialise le processus de lancement de l'application et le 
 
 2. Ouvrez le fichier source qui correspond à l'exécutable que vous souhaitez déboguer (par exemple, pour un programme intitulé *prog*, sélectionnez son fichier source *prog.as*) dans Visual Studio Code.
 
-3. Appuyez sur `f5` OU Cliquez sur l'onglet **Run and Debug** à gauche (avec la triangle superposé d'un insecte), assurez vous que le profil de lancement sélectionné s'intitule `Debug ARM64 via QEMU` et appuyez sur la flèche de lancement verte en haut de la page.
+3. Appuyez sur `f5` OU Cliquez sur l'onglet **Run and Debug** à gauche (avec la triangle superposé d'un insecte), assurez vous que le profil de lancement sélectionné s'intitule `(QEMU + gdb) debug current file` et appuyez sur la flèche de lancement verte en haut de la page.
 
     Le programme commencera toujours son exécution hors de votre fichier. C'est un caprice de l'émulation QEMU (je pense). Vous verrez un nouveau fichier inexistant s'ouvrir. Vous pouvez le fermer et rouvrir le fichier source de l'exécutable courant.
 
