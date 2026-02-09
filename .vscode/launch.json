@@ -5,7 +5,7 @@
             "name": "(QEMU + gdb) debug current file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}${pathSeparator}${fileBasenameNoExtension}",
+            "program": "${fileBasenameNoExtension}",
             "cwd": "${fileDirname}",
             "MIMode": "gdb",
             "miDebuggerPath": "/usr/bin/gdb-multiarch",
